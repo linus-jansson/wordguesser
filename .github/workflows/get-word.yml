@@ -39,7 +39,7 @@ jobs:
     - name: Send file content to Discord webhook
       run: |
         FILE_CONTENT=$(jq -Rs . < ./wordguesser/output.txt)
-        PAYLOAD=$(jq -n --arg content "$FILE_CONTENT" '{embeds: [{title: "Här är dagens ordel!", description: $content}]}')
+        PAYLOAD=$(jq -n --arg content "$FILE_CONTENT" '{embeds: [{title: "Här är dagens ord!", description: $content}]}')
         curl -X POST \
           -H "Content-Type: application/json" \
           -d "$PAYLOAD" \

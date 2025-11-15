@@ -30,7 +30,7 @@ const (
 
 type Pattern [5]CorrectLetter
 
-func daysSinceOrdelEpochWithMagicNumber() int {
+func daysSinceWordGuesserEpochWithMagicNumber() int {
 	// wordgame epoch is 2024-06-19
 	YYYYMMDD := "2006-01-02"
 	then, err := time.Parse(YYYYMMDD, "2024-06-19")
@@ -45,7 +45,7 @@ func submitGuess(guess string) ([]CorrectLetter, error) {
 	apiUrl := os.Getenv("API_URL")
 	tryParam := fmt.Sprintf("n=%d", 0)
 	guessParam := fmt.Sprintf("guess=%s", guess)
-	id := fmt.Sprintf("id=%d", daysSinceOrdelEpochWithMagicNumber())
+	id := fmt.Sprintf("id=%d", daysSinceWordGuesserEpochWithMagicNumber())
 	url := fmt.Sprintf("%s?%s&%s&%s", apiUrl, tryParam, guessParam, id)
 	// fmt.Printf("Submitting '%s' to API\n", guess)
 	// When calling the API I either get back a list of CorrectLetters '{"letters":[1,0,0,-1,-1]}', or I get a error '{"error":"INVALID_WORD"}'

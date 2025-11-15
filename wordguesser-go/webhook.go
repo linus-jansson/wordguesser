@@ -30,7 +30,7 @@ func SendFileToDiscordWebhook(filePath, webhookURL string) error {
 	payload := DiscordEmbedPayload{
 		Embeds: []Embed{
 			{
-				Title:       "Här är dagens ordel!",
+				Title:       "Här är dagens ord!",
 				Description: string(contentBytes),
 			},
 		},
