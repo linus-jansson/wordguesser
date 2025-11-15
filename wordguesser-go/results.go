@@ -11,6 +11,5 @@ func writeResults(correctWord string, attempts int, success bool) {
 		status = "was not found"
 	}
 	stringToWrite := fmt.Sprintf("Word \"%s\" %s in %d tries\n", correctWord, status, attempts)
-	fmt.Println(stringToWrite)
 	os.WriteFile("output.txt", []byte(stringToWrite), 0644)
 }
