@@ -8,9 +8,6 @@ on:
     - cron: '0 8 * 10-12 *'
     # Daylight Saving Time (Last Sunday of March to Last Saturday of October)
     - cron: '0 7 * 3-10 *'
-  push:
-    branches:
-      - main
 
 jobs:
   run-main:

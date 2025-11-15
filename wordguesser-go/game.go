@@ -12,7 +12,7 @@ func play(allWords, answers []string) CorrectGuess {
 
 	for turn := 1; turn <= 6; turn++ {
 		guess := pickBestGuess(candidates, allWords)
-		fmt.Printf("Turn %d, guess: %s\n", turn, guess)
+		fmt.Printf("Turn %d\n", turn)
 
 		apiPatternSlice, err := submitGuess(guess)
 		if err != nil {

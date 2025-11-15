@@ -47,7 +47,7 @@ func submitGuess(guess string) ([]CorrectLetter, error) {
 	guessParam := fmt.Sprintf("guess=%s", guess)
 	id := fmt.Sprintf("id=%d", daysSinceOrdelEpochWithMagicNumber())
 	url := fmt.Sprintf("%s?%s&%s&%s", apiUrl, tryParam, guessParam, id)
-	fmt.Printf("Submitting '%s' to API\n", guess)
+	// fmt.Printf("Submitting '%s' to API\n", guess)
 	// When calling the API I either get back a list of CorrectLetters '{"letters":[1,0,0,-1,-1]}', or I get a error '{"error":"INVALID_WORD"}'
 	// The API seems to also always return 200 OK even on error.
 	res, err := http.Get(url)

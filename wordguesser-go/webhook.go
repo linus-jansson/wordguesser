@@ -52,6 +52,8 @@ func SendFileToDiscordWebhook(filePath, webhookURL string) error {
 		return fmt.Errorf("discord webhook returned status %d: %s", resp.StatusCode, string(body))
 	}
 
+	fmt.Println("Successfully sent the file content to Discord webhook.")
+
 	return nil
 }
 
