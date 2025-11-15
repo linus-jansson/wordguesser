@@ -1,5 +1,5 @@
 services:
-  ordel-guesser:
+  wordguesser:
     build:
       context: .
       dockerfile: Dockerfile

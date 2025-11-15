@@ -8,7 +8,9 @@ all: build
 
 build:
 	mkdir -p $(BIN_DIR)
-	cd $(SRC_DIR) && go build -o ../$(TARGET)
+	gzip -c words/valid-words.json > wordguesser-go/valid-words.json.gz
+	cd $(SRC_DIR) && CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags="-s -w" -o ../$(TARGET)
+	rm wordguesser-go/valid-words.json.gz
 
 clean:
 	rm -rf $(BIN_DIR)

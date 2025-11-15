@@ -1,27 +1,25 @@
-# ---------- Build stage ----------
 FROM golang:1.24.5-alpine AS builder
+
+RUN apk add --no-cache ca-certificates gzip
 
 WORKDIR /app
 
 COPY wordguesser-go/go.mod ./
 
-RUN go mod download
 COPY wordguesser-go/*.go ./
-
 COPY words/valid-words.json ./valid-words.json
+# We compress the word list and embed it in build time
+RUN gzip -c valid-words.json > valid-words.json.gz
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -ldflags="-s -w" -o wordguesser .
+RUN rm ./valid-words.json.gz valid-words.json
 
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o wordguesser .
-
-# ---------- Runtime stage ----------
-FROM alpine:latest
+# Runtime stage - using scratch for minimal image size
+FROM scratch
 
 WORKDIR /app
 
-# Copy the binary and the word list from the builder
 COPY --from=builder /app/wordguesser .
-COPY --from=builder /app/valid-words.json .
+COPY --from=builder /etc/ssl/certs /etc/ssl/certs
 
-# Env var default (overridden by docker-compose/.env)
-ENV API_URL="https://ordel.se/play"
-
-ENTRYPOINT ["./wordguesser"]
+ENTRYPOINT ["/app/wordguesser"]
